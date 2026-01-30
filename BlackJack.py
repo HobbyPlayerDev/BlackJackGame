@@ -45,7 +45,7 @@ def Game_function():
         Karte1 = random.choice(Deck)
         Karte2 = random.choice(Deck)
         DeinErgebnis = Karte1 + Karte2
-        print(f"Du hast eine {Karte1} und eine {Karte2} gezogen. Insgesammt hast du jetzt {DeinErgebnis}")
+        print(f"Du hast eine {Karte1} und eine {Karte2} gezogen. Insgesammt hast du jetzt: {DeinErgebnis}")
         print("")
 
         #Karten wurden gezogen. Möchte der Spieler weiter?
@@ -64,21 +64,55 @@ def Game_function():
                 NeueKarte = random.choice(Deck)
                 DeinErgebnis += NeueKarte
                 print("")
-                print(f"Du hast eine {NeueKarte} gezogen. Insgesammt hast du jetzt Insgesammt: {DeinErgebnis}")
+                print(f"Du hast eine {NeueKarte} gezogen. Insgesammt hast du jetzt: {DeinErgebnis}")
                 #Überprüfen ob man über 21 ist.
                 if DeinErgebnis > 21:
                     print("Du bist über 21 gekommen. Du hast Verloren!")
                     Konto -= GeldGesetzt #Geld wird genommen
                     return None
                 else:
-                    #Man hat eine Karte genommen. Man ist unter 22.
+                    #Der Spieler hat eine Karte genommen. Der Spieler ist unter 22.
                     WeiterZiehen = input("Möchtest du noch eine Karte ziehen? ").strip().lower()
                     NochEineKarte()
             elif WeiterZiehen in ["nein", "ne", "n"]:
                 print("")
                 print(f"Du bleibst bei {DeinErgebnis}")
                 print("")
-                #Dealer hinzufügen hier! ##################
+                #Dealer Funktion ab hier
+                Karte3 = random.choice(Deck)
+                Karte4 = random.choice(Deck)
+                DealerErgebnis = Karte3 + Karte4
+                print(f"Der Dealer hat eine {Karte3} und {Karte4} gezogen. Der Dealer hat jetzt Insgesammt: {DealerErgebnis}")
+                while DealerErgebnis < DeinErgebnis or DealerErgebnis == 17 and DealerErgebnis == DeinErgebnis:
+                    time.sleep(3) #Mehr Zeit zum Lesen sonst wird es zuviel
+                    print("") #Mehr Überischt
+                    print("Der Dealer hat sich entschieden eine weitere Karte zu ziehen 🤔.")
+                    print("")
+                    time.sleep(4) #Mehr Zeit zum Lesen sonst wird es zuviel
+                    NeueKarteDealer = random.choice(Deck)
+                    DealerErgebnis += NeueKarteDealer
+                    if DealerErgebnis > 21:
+                        print(f"Der Dealer hat eine {NeueKarteDealer} gezogen 🎲. Insgesammt hat der Dealer jetzt: {DealerErgebnis} 🔹 Der Dealer Verliert da er überzogen hat. Du Gewinnst {GeldGesetzt} Euro 💵 🎉")
+                        print("")
+                        Konto += GeldGesetzt #Das Geld kriegt man hinzugefügt (Am Anfang wurde das Geld nicht genommen)
+                        return None
+                    else:
+                        print(f"Der Dealer hat eine {NeueKarteDealer} 🃏 gezogen. Der Dealer hat jetzt Insgesammt: {DealerErgebnis}")
+                    if DealerErgebnis == DeinErgebnis:
+                        print(f"Der Dealer bleibt bei {DealerErgebnis}. Ihr habt somit beide gleich viel. Es steht Unentschieden, keiner Gewinnt!")
+                        print("")
+                        return None #Beide hatten gleich viel somit wird keinem etwas abgezogen
+                if DealerErgebnis > DeinErgebnis:
+                    print(f"Der Dealer bleibt bei {DealerErgebnis}. Der Dealer gewinnt! 💥 Da sein Blatt höher ist als deins.") #Der Dealer gewinnt da er eine höhere Hand hatte
+                    print("")
+                    Konto -= GeldGesetzt
+                    return None
+                elif DealerErgebnis == DeinErgebnis:
+                    print(f"Der Dealer bleibt bei {DealerErgebnis}. Ihr habt somit beide gleich viel. Es steht Unentschieden, keiner Gewinnt!")
+                    print("")
+                    return None #Beide hatten gleich viel somit wird keinem etwas abgezogen
+                else:
+                    print("Fehler Code: 2! dieser Weg ist nicht möglich jedoch ist ein Fehler aufgetreten der sie hierherbringt!") #Kann eigentlich nicht passieren!
             else:
                 #Es wird so oft Nachgefragt bis sich der Spieler für Ja oder Nein entscheidet.
                 print("Gib Ja oder Nein an!")
