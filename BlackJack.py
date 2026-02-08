@@ -29,7 +29,7 @@ def Game_function():
         return None
 
     if GeldGesetzt > Konto:
-        print("Du hast nicht genug Geld little Bro 🥀") #Geld hat er aber nicht genug um die Zahl die er geschrieben hat zu zahlen
+        print("Du hast nicht genug Geld für diese Aktion! 💵") #Geld hat er aber nicht genug um die Zahl die er geschrieben hat zu zahlen
         return None
     else:
         if GeldGesetzt <= 0: #Geprüft ob es sich um mehr als 0 Euro handelt
